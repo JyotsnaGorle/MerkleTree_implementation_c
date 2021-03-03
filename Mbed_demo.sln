@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mbed_demo", "Mbed_demo\Mbed_demo.vcxproj", "{48AD842B-DCC5-4FEC-9E0E-36F428F6AB7C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48AD842B-DCC5-4FEC-9E0E-36F428F6AB7C}.Debug|x64.ActiveCfg = Debug|x64
+		{48AD842B-DCC5-4FEC-9E0E-36F428F6AB7C}.Debug|x64.Build.0 = Debug|x64
+		{48AD842B-DCC5-4FEC-9E0E-36F428F6AB7C}.Debug|x86.ActiveCfg = Debug|Win32
+		{48AD842B-DCC5-4FEC-9E0E-36F428F6AB7C}.Debug|x86.Build.0 = Debug|Win32
+		{48AD842B-DCC5-4FEC-9E0E-36F428F6AB7C}.Release|x64.ActiveCfg = Release|x64
+		{48AD842B-DCC5-4FEC-9E0E-36F428F6AB7C}.Release|x64.Build.0 = Release|x64
+		{48AD842B-DCC5-4FEC-9E0E-36F428F6AB7C}.Release|x86.ActiveCfg = Release|Win32
+		{48AD842B-DCC5-4FEC-9E0E-36F428F6AB7C}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {447D8940-7BEB-4339-BD8C-A127D9ED600C}
+	EndGlobalSection
+EndGlobal
