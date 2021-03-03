@@ -50,6 +50,23 @@ int DoSha256_bytes(uint8_t payload[32], uint8_t shaHashString[32], int size) {
     return 1;
 }
 
+
+int DoSha256_parent(uint8_t payload[64], uint8_t shaHashString[32], int size) {
+
+    mbedtls_md_context_t ctx;
+    mbedtls_md_type_t md_type = MBEDTLS_MD_SHA256;
+
+    const size_t payloadLength = size;
+
+    mbedtls_md_init(&ctx);
+    mbedtls_md_setup(&ctx, mbedtls_md_info_from_type(md_type), 0);
+    mbedtls_md_starts(&ctx);
+    mbedtls_md_update(&ctx, payload, payloadLength);
+    mbedtls_md_finish(&ctx, shaHashString);
+    mbedtls_md_free(&ctx);
+    return 1;
+}
+
 int HashValuePrint(uint8_t* digest)
 {
 
@@ -64,20 +81,18 @@ int HashValuePrint(uint8_t* digest)
     return 0;
 }
 
-int ConcatHashes(uint8_t* left, uint8_t* right, char* parent)
+int ConcatHashes(uint8_t* left, uint8_t* right, uint8_t parent[64])
 {
-    /*if (left != NULL && right != NULL && parent != NULL) {
+    if (left != NULL && right != NULL && parent != NULL) {
         for (int i = 0; i < STD_HASH_SIZE_BYTES; i++) {
-            sprintf_s(parent, "%02x", (int)left[i]);
-            parent += 2;
+            parent[i] = left[i];
         }
 
         for (int i = 0; i < STD_HASH_SIZE_BYTES; i++) {
-            sprintf_s(parent, "%02x", (int)right[i]);
-            parent += 2;
+            parent[STD_HASH_SIZE_BYTES + i] = right[i];
         }
         return 1;
-    }*/
+    }
 
     return 0;
 }

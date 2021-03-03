@@ -1,6 +1,8 @@
 // h
 // 2^(h-1)
 
+#define TREE_HEIGHT_GLOBAL 16
+
 #define SHA2_DIGEST_LENGTH 64
 #define STD_HASH_SIZE_BYTES 32
 

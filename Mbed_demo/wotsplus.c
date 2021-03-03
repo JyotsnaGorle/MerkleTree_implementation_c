@@ -65,7 +65,6 @@ uint8_t* chain(int init, int end, array_of_32_uint8_t value, array_of_32_uint8_t
     
     for (int i = init; i < end; i++) {
         uint8_t bit_mask[KEY_EACH_NUMBER_BYTE_SIZE];
-        HashValuePrint(value);
         DoHMAC(value, seed, bit_mask);
 
         uint8_t chain_var[KEY_EACH_NUMBER_BYTE_SIZE];

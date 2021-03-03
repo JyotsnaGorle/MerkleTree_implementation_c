@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdbool.h>
 #define mbedtls_printf       printf
 #define mbedtls_exit         exit
 #define MBEDTLS_EXIT_SUCCESS EXIT_SUCCESS
@@ -38,14 +39,28 @@
 #include "leafs.h"
 #include "m_hmac.h"
 #include "wotsplus.h"
+#include "treehash.h"
+
+
 
 int main(void)
 {
 
-    init_tree_height_leaves(3, 4);
+    init_tree_height_leaves(19, 262144);
     
-    array_of_32_uint8_t hash_pub_key;
-    get_leaf(seed_global, hash_pub_key, 3);
+    const int h = tree_height - 1;
+    array_of_32_uint8_t stacks_array[TREE_HEIGHT_GLOBAL-1];
+    array_of_32_uint8_t auths_array[TREE_HEIGHT_GLOBAL-1];
+
+    Init_stack_auth_nodes(stacks_array, auths_array);
+
+    leafPtr = (struct element*)malloc(sizeof(struct element));
+    Initialize(0, tree_height - 1, leafPtr);
+
+    // for root : total nodes in tree - 1
+    int n_leaves = (1 << (tree_height - 1));
+    int n = n_leaves + leaves_count - 1;
+    Update(n - 1, tree_height - 1);
 
 #if defined(_WIN32)
     mbedtls_printf("  Press Enter to exit this program.\n");

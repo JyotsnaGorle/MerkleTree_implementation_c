@@ -23,12 +23,14 @@
     <ClCompile Include="leafs.c" />
     <ClCompile Include="m_hmac.c" />
     <ClCompile Include="m_sha256.c" />
+    <ClCompile Include="treehash.c" />
     <ClCompile Include="wotsplus.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="leafs.h" />
     <ClInclude Include="m_hmac.h" />
     <ClInclude Include="m_sha256.h" />
+    <ClInclude Include="treehash.h" />
     <ClInclude Include="wotsplus.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
