@@ -30,7 +30,7 @@ int get_checksum(wotsplus_obj* obj, int* value);
 int* convert_checksum_hex(int cksm, int checksum_array[], int size);
 int* convert_hex_values(char* hex, int hex_array[], int size);
 
-int sign(wotsplus_obj* wots_obj, char* message, uint8_t* secret_key[KEY_SIZE_L], uint8_t* signature[KEY_SIZE_L]);
-int get_public_key_from_signature(wotsplus_obj* wots_obj, char* message, uint8_t* signature[KEY_SIZE_L], uint8_t* derived_pub_key[KEY_SIZE_L]);
+int sign(wotsplus_obj* wots_obj, char* message, uint8_t* secret_key[KEY_SIZE_L], array_of_32_uint8_t signature[KEY_SIZE_L]);
+int get_public_key_from_signature(wotsplus_obj* wots_obj, char* message, array_of_32_uint8_t signature[KEY_SIZE_L], array_of_32_uint8_t derived_pub_key[KEY_SIZE_L]);
 
-int verify_signature(wotsplus_obj* wots_obj, char* message, uint8_t* signature[KEY_SIZE_L], uint8_t* publick_key[KEY_SIZE_L]);
+int verify_signature(wotsplus_obj* wots_obj, char* message, array_of_32_uint8_t signature[KEY_SIZE_L], array_of_32_uint8_t publick_key[KEY_SIZE_L]);

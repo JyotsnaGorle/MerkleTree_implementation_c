@@ -36,21 +36,28 @@ wotsplus_obj* init_wots(wotsplus_obj* this_wots_obj, int w, int d, uint8_t* seed
 
 void gen_secret_key(array_of_32_uint8_t secret_key[KEY_SIZE_L], int magic) {
     // 0 to 30 = 31
-    for (int i = 0; i < KEY_SIZE_L - 1; i++) {
+    for (int i = 0; i < KEY_SIZE_L; i++) {
 
-        const unsigned char charset[] = "mnopqrstabcdefgluvwxyz12345hijk";
-        
-        for (size_t n = 0; n < KEY_EACH_NUMBER_BYTE_SIZE; n++) {
-            int key = (magic++) % (int)(sizeof charset);
-            secret_key[i][n] = charset[key];
+        uint8_t feed[KEY_EACH_NUMBER_BYTE_SIZE];
+
+        const unsigned char prf_prefix[] = "mnopqrst12345abcdefgluvwxyzhijk";
+        // 16 - 0 to 15
+        for (size_t n = 0; n < KEY_EACH_NUMBER_BYTE_SIZE / 2; n++) {
+            int key = magic++ % (int)(sizeof prf_prefix);
+            feed[n] = prf_prefix[key];
         }
+        // 15 - 16 to 30 
+        const unsigned char key[] = "my secrets salt";
+        for (size_t n = 0; n < 16; n++) {
+            feed[n + 16] = key[n];
+        }
+
+        // 31
+        feed[KEY_EACH_NUMBER_BYTE_SIZE - 1] = magic % (int)(sizeof prf_prefix);
+        // memcpy(secret_key[i], feed, KEY_EACH_NUMBER_BYTE_SIZE);
+        DoSha256_bytes(feed, secret_key[i], KEY_EACH_NUMBER_BYTE_SIZE);
     }
-
-    // 32
-
-    const char salt[] = "SALTSALTSALTSALTSALTSALTSALTSALT";
-    for (int k = 0; k < KEY_EACH_NUMBER_BYTE_SIZE; k++)
-        secret_key[KEY_SIZE_L - 1][k] = salt[k];
+    magic = 0;
 }
 
 
@@ -148,7 +155,7 @@ int* convert_checksum_hex(int cksm, int checksum_array[], int size) {
 }
 
 
-int sign(wotsplus_obj* wots_obj, char* message, uint8_t* secret_key[KEY_SIZE_L], uint8_t* signature[KEY_SIZE_L]) {
+int sign(wotsplus_obj* wots_obj, char* message, uint8_t* secret_key[KEY_SIZE_L], array_of_32_uint8_t signature[KEY_SIZE_L]) {
 
     uint8_t msg_hash[KEY_EACH_NUMBER_BYTE_SIZE];
     DoSha256(message, msg_hash);
@@ -185,14 +192,13 @@ int sign(wotsplus_obj* wots_obj, char* message, uint8_t* secret_key[KEY_SIZE_L],
 
     for (int i = 0; i < 67; i++) {
         chain(0, final_msg[i], secret_key[i], wots_obj->seed);
-        signature[i] = malloc(sizeof(uint8_t) * KEY_EACH_NUMBER_BYTE_SIZE);
         memcpy(signature[i], secret_key[i], KEY_EACH_NUMBER_BYTE_SIZE);
     }
 
     return 0;
 }
 
-int get_public_key_from_signature(wotsplus_obj* wots_obj, char* message, uint8_t* signature[KEY_SIZE_L], uint8_t* derived_pub_key[KEY_SIZE_L]) {
+int get_public_key_from_signature(wotsplus_obj* wots_obj, char* message, array_of_32_uint8_t signature[KEY_SIZE_L], array_of_32_uint8_t derived_pub_key[KEY_SIZE_L]) {
     uint8_t msg_hash[KEY_EACH_NUMBER_BYTE_SIZE];
     DoSha256(message, msg_hash);
 
@@ -220,14 +226,13 @@ int get_public_key_from_signature(wotsplus_obj* wots_obj, char* message, uint8_t
 
     for (int i = 0; i < 67; i++) {
         chain((int)final_msg[i], wots_obj->wots_param_w, signature[i], wots_obj->seed);
-        derived_pub_key[i] = malloc(sizeof(uint8_t) * KEY_EACH_NUMBER_BYTE_SIZE);
         memcpy(derived_pub_key[i], signature[i], KEY_EACH_NUMBER_BYTE_SIZE);
     }
     return 0;
 }
 
-int verify_signature(wotsplus_obj* wots_obj, char* message, uint8_t* signature[KEY_SIZE_L], uint8_t* publick_key[KEY_SIZE_L]) {
-    uint8_t* derived_pub_key[KEY_SIZE_L];
+int verify_signature(wotsplus_obj* wots_obj, char* message, array_of_32_uint8_t signature[KEY_SIZE_L], array_of_32_uint8_t publick_key[KEY_SIZE_L]) {
+    array_of_32_uint8_t derived_pub_key[KEY_SIZE_L];
     get_public_key_from_signature(wots_obj, message, signature, derived_pub_key);
 
     for (int i = 0; i < 67; i++) {

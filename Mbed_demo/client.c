@@ -46,7 +46,7 @@
 int main(void)
 {
 
-    init_tree_height_leaves(8, 128);
+    init_tree_height_leaves(3, 4);
     
     const int h = tree_height - 1;
 
@@ -59,6 +59,8 @@ int main(void)
     int n_leaves = (1 << (tree_height - 1));
     int n = n_leaves + leaves_count - 1;
     Update(n - 1, tree_height - 1);
+
+    puts("STACKS:");
 
     for (int i = 0; i < tree_height; i++) {
         printf("%d ", i);

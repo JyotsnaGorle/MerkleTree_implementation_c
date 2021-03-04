@@ -91,7 +91,6 @@ int ConcatHashes(uint8_t* left, uint8_t* right, uint8_t parent[64])
         for (int i = 0; i < STD_HASH_SIZE_BYTES; i++) {
             parent[STD_HASH_SIZE_BYTES + i] = right[i];
         }
-        return 1;
     }
 
     return 0;

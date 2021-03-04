@@ -144,9 +144,8 @@ int Treehash() {
         }
 
         uint8_t buffer[2 * STD_HASH_SIZE_BYTES];
-        if (ConcatHashes(left, right, buffer) == 0) {
+        if (ConcatHashes(left, right, buffer) == 1) {
             free(parent);
-            free(buffer);
             printf("ERROR: concat unsuccessful");
             return 0;
         }

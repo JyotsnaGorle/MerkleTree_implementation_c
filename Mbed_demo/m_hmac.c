@@ -24,8 +24,8 @@ int DoHMAC(array_of_32_uint8_t payload, array_of_32_uint8_t key, array_of_32_uin
     mbedtls_md_context_t ctx;
     mbedtls_md_type_t md_type = MBEDTLS_MD_SHA256;
 
-    const size_t payloadLength = sizeof(payload);
-    const size_t keyLength = 19;
+    const size_t payloadLength = 32;
+    const size_t keyLength = 32;
 
     mbedtls_md_init(&ctx);
     mbedtls_md_setup(&ctx, mbedtls_md_info_from_type(md_type), 1);

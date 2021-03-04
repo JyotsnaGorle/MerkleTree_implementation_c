@@ -62,7 +62,7 @@ char* Rand_string(char* str, size_t size) {
 }
 
 void init_tree_height_leaves(int h, int cnt) {
-    for (int i = 0; i < STD_HASH_SIZE_BYTES; i++) seed_global[i] = (uint8_t)i;
+    DoSha256("my seed", seed_global);
     tree_height = h;
-    leaves_count = cnt;
+    leaves_count = (1 << (tree_height - 1));;
 }
