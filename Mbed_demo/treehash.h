@@ -17,8 +17,8 @@ int indx;
 bool first_update;
 int maxheight;
 
-array_of_32_uint8_t *stacks;
-array_of_32_uint8_t *auths;
+array_of_32_uint8_t stacks[7];
+array_of_32_uint8_t auths[6];
 
 void push(struct element* nodetoPushIn, struct element** stack);
 void pop(struct element** stack);
@@ -26,4 +26,4 @@ void top(struct element* stack);
 int Update(int t, int h);
 int Initialize(int startnode_index, int h, struct element*);
 int Treehash();
-int Init_stack_auth_nodes(array_of_32_uint8_t *nt_stack, array_of_32_uint8_t *nt_auth);
+int Init_stack_auth_nodes();

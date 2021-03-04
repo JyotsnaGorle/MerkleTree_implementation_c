@@ -93,7 +93,8 @@ int Update(int t, int h) {
         runCtr++;
     }
     printf("Time elapsed: %lf\n", elapsed);
-    // stacks->treehash_nodes[h].stack_nodes = leafPtr;    
+    // stacks[h] = leafPtr; 
+    memcpy(stacks[h], leafPtr->hash, STD_HASH_SIZE_BYTES);
     return 0;
 }
 
@@ -212,9 +213,7 @@ int Treehash() {
     return 1;
 }
 
-int Init_stack_auth_nodes(array_of_32_uint8_t *nt_stack, array_of_32_uint8_t *nt_auth) {
-    stacks = nt_stack;
-    auths = nt_auth;
+int Init_stack_auth_nodes() {
     first_update = true;
     indx = 1;
     return 0;

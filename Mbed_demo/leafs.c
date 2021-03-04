@@ -6,7 +6,6 @@
 #include "m_sha256.h"
 #include "wotsplus.h"
 
-typedef uint8_t array_of_32_uint8_t[STD_HASH_SIZE_BYTES];
 
 int get_leaf(uint8_t* seed, array_of_32_uint8_t hash_pub_key, int magic_number) {
 
@@ -37,6 +36,7 @@ int get_leaf(uint8_t* seed, array_of_32_uint8_t hash_pub_key, int magic_number) 
     // hash pub key
     DoSha256_bytes(pub_key, hash_pub_key, pub_key_size);
 
+    free(wots_obj);
     return 0;
 }
 

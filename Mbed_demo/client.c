@@ -46,13 +46,11 @@
 int main(void)
 {
 
-    init_tree_height_leaves(19, 262144);
+    init_tree_height_leaves(8, 128);
     
     const int h = tree_height - 1;
-    array_of_32_uint8_t stacks_array[TREE_HEIGHT_GLOBAL-1];
-    array_of_32_uint8_t auths_array[TREE_HEIGHT_GLOBAL-1];
 
-    Init_stack_auth_nodes(stacks_array, auths_array);
+    Init_stack_auth_nodes();
 
     leafPtr = (struct element*)malloc(sizeof(struct element));
     Initialize(0, tree_height - 1, leafPtr);
@@ -61,6 +59,19 @@ int main(void)
     int n_leaves = (1 << (tree_height - 1));
     int n = n_leaves + leaves_count - 1;
     Update(n - 1, tree_height - 1);
+
+    for (int i = 0; i < tree_height; i++) {
+        printf("%d ", i);
+        HashValuePrint(stacks[i]);
+    }
+
+    puts("AUTH:");
+
+    for (int i = 0; i < tree_height - 1; i++) {
+        printf("%d ", i);
+        HashValuePrint(auths[i]);
+    }
+       
 
 #if defined(_WIN32)
     mbedtls_printf("  Press Enter to exit this program.\n");
