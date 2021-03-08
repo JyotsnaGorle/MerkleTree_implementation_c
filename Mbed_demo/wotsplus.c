@@ -34,7 +34,7 @@ wotsplus_obj* init_wots(wotsplus_obj* this_wots_obj, int w, int d, uint8_t* seed
     return this_wots_obj;
 }
 
-void gen_secret_key(array_of_32_uint8_t secret_key[KEY_SIZE_L], int magic) {
+void gen_secret_key(array_of_32_uint8_t secret_key[KEY_SIZE_L], int magic, uint8_t *salt) {
     // 0 to 30 = 31
     for (int i = 0; i < KEY_SIZE_L; i++) {
 
@@ -47,9 +47,8 @@ void gen_secret_key(array_of_32_uint8_t secret_key[KEY_SIZE_L], int magic) {
             feed[n] = prf_prefix[key];
         }
         // 15 - 16 to 30 
-        const unsigned char key[] = "my secrets salt";
         for (size_t n = 0; n < 16; n++) {
-            feed[n + 16] = key[n];
+            feed[n + 16] = salt[n];
         }
 
         // 31

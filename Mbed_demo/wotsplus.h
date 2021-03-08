@@ -21,7 +21,7 @@ typedef struct wotsplus_obj
 
 
 wotsplus_obj* init_wots(wotsplus_obj*, int w, int d, uint8_t* seed);
-void gen_secret_key(array_of_32_uint8_t secret_key[KEY_SIZE_L], int magic);
+void gen_secret_key(array_of_32_uint8_t secret_key[KEY_SIZE_L], int magic, uint8_t *salt);
 int gen_public_key(array_of_32_uint8_t secret_key[KEY_SIZE_L], array_of_32_uint8_t public_key[KEY_SIZE_L], array_of_32_uint8_t seed);
 uint8_t* chain(int init, int end, array_of_32_uint8_t value, array_of_32_uint8_t seed);
 void bitwise_xor_bytes(uint8_t input[KEY_EACH_NUMBER_BYTE_SIZE], uint8_t bit_mask[KEY_EACH_NUMBER_BYTE_SIZE], uint8_t chaining_variable[KEY_EACH_NUMBER_BYTE_SIZE]);

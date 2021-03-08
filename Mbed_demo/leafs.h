@@ -20,4 +20,3 @@ uint8_t seed_global[STD_HASH_SIZE_BYTES];
 
 void init_tree_height_leaves(int h, int cnt);
 int get_leaf(uint8_t* seed, array_of_32_uint8_t hash_pub_key, int magic_number);
-

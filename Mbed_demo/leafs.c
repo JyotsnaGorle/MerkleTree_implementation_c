@@ -6,15 +6,17 @@
 #include "m_sha256.h"
 #include "wotsplus.h"
 
-
 int get_leaf(uint8_t* seed, array_of_32_uint8_t hash_pub_key, int magic_number) {
 
     wotsplus_obj *wots_obj = (wotsplus_obj*)malloc(sizeof(wotsplus_obj));
     init_wots(wots_obj, 16, 256, seed_global);
     // gen priv key
     array_of_32_uint8_t secret_key[KEY_SIZE_L];
+
+    // 01 secrets salts
+    uint8_t salt[] = { 0x30, 0x31, 0x20, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74, 0x73, 0x20, 0x73, 0x61, 0x6c, 0x74, 0x73 };
     
-    gen_secret_key(secret_key, magic_number);
+    gen_secret_key(secret_key, magic_number, salt);
 
     // gen pub key
     array_of_32_uint8_t pk[KEY_SIZE_L];

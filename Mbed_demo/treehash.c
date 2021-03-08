@@ -20,14 +20,19 @@ void push(struct element* nodetoPushIn, struct element** stack) {
 void pop(struct element** stack) {
 
     if (*stack != NULL) {
-        // printf("Element popped: %d%d\n",(*stack) -> level, (*stack) -> index);
-        // HashValuePrint((*stack)->hash);
+        
+        printf("Element popped: %d%d\n", (*stack)->level, (*stack)->index);
 
-        if ((*stack)->index == 0 && first_update) {
+        if ((*stack)->index == 0) {
             memcpy(stacks[(*stack)->level], (*stack)->hash, STD_HASH_SIZE_BYTES);
         }
-        else if ((*stack)->index == 1 && first_update) {
+        
+        if ((*stack)->index == 1) {
+            puts("---------------------------------------------");
             memcpy(auths[(*stack)->level], (*stack)->hash, STD_HASH_SIZE_BYTES);
+            HashValuePrint(auths[(*stack)->level]);
+            puts("---------------------------------------------");
+
         }
 
         struct element* tempPtr = *stack;
@@ -125,6 +130,7 @@ int Treehash() {
         // pop right
         uint8_t right[STD_HASH_SIZE_BYTES];
         memcpy(right, leafPtr->hash, STD_HASH_SIZE_BYTES);
+        parent->index = leafPtr->index / 2;
         pop(&leafPtr);
 
         if (right == NULL) {
@@ -163,18 +169,11 @@ int Treehash() {
         
         // push parent
         if (leafPtr == NULL) {
-            parent->index = 0;
             leafPtr = parent;
             top(leafPtr);
         }
         else {
-            int h = tree_height - 1 - parent->level;
-            if (indx >= (1 << h)) {
-                indx = 1;
-            }
-            parent->index = indx;
             push(parent, &leafPtr);
-            indx++;
         }
 
     }
