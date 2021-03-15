@@ -40,10 +40,10 @@ void gen_secret_key(array_of_32_uint8_t secret_key[KEY_SIZE_L], int magic, uint8
 
         uint8_t feed[KEY_EACH_NUMBER_BYTE_SIZE];
 
-        const unsigned char prf_prefix[] = "mnopqrst12345abcdefgluvwxyzhijk";
+        const unsigned char prf_prefix[] = "mnopqrst12345abcdefgluvwxyzhijkdefgluvwxy";
         // 16 - 0 to 15
         for (size_t n = 0; n < KEY_EACH_NUMBER_BYTE_SIZE / 2; n++) {
-            int key = magic++ % (int)(sizeof prf_prefix);
+            int key = magic % (int)(sizeof prf_prefix);
             feed[n] = prf_prefix[key];
         }
         // 15 - 16 to 30 
@@ -52,11 +52,10 @@ void gen_secret_key(array_of_32_uint8_t secret_key[KEY_SIZE_L], int magic, uint8
         }
 
         // 31
-        feed[KEY_EACH_NUMBER_BYTE_SIZE - 1] = magic % (int)(sizeof prf_prefix);
+        feed[KEY_EACH_NUMBER_BYTE_SIZE - 1] = magic;
         // memcpy(secret_key[i], feed, KEY_EACH_NUMBER_BYTE_SIZE);
         DoSha256_bytes(feed, secret_key[i], KEY_EACH_NUMBER_BYTE_SIZE);
     }
-    magic = 0;
 }
 
 

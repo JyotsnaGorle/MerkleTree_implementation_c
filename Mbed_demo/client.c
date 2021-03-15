@@ -46,7 +46,7 @@
 int main(void)
 {
 
-    init_tree_height_leaves(8, 128);
+    init_tree_height_leaves(21, 1048576);
     
     const int h = tree_height - 1;
 
@@ -61,7 +61,8 @@ int main(void)
     Update(n - 1, tree_height - 1);
 
     puts("STACKS:");
-
+    
+    // 0 to 20
     for (int i = 0; i < tree_height; i++) {
         printf("%d ", i);
         HashValuePrint(stacks[i]);
@@ -69,13 +70,12 @@ int main(void)
 
     puts("AUTH:");
 
+    // 0 to 19
     for (int i = 0; i < tree_height - 1; i++) {
         printf("%d ", i);
         HashValuePrint(auths[i]);
     }
-     
-    puts("ROOT:");
-    HashValuePrint(stacks[tree_height - 1]);
+    
 
 #if defined(_WIN32)
     mbedtls_printf("  Press Enter to exit this program.\n");

@@ -17,8 +17,8 @@ int indx;
 bool first_update;
 int maxheight;
 
-array_of_32_uint8_t stacks[7];
-array_of_32_uint8_t auths[6];
+array_of_32_uint8_t stacks[21];
+array_of_32_uint8_t auths[20];
 
 void push(struct element* nodetoPushIn, struct element** stack);
 void pop(struct element** stack);

@@ -66,5 +66,5 @@ char* Rand_string(char* str, size_t size) {
 void init_tree_height_leaves(int h, int cnt) {
     DoSha256("my seed", seed_global);
     tree_height = h;
-    leaves_count = (1 << (tree_height - 1));;
+    leaves_count = (1 << (tree_height - 1));
 }

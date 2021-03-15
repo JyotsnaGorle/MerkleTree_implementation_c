@@ -28,11 +28,7 @@ void pop(struct element** stack) {
         }
         
         if ((*stack)->index == 1) {
-            puts("---------------------------------------------");
             memcpy(auths[(*stack)->level], (*stack)->hash, STD_HASH_SIZE_BYTES);
-            HashValuePrint(auths[(*stack)->level]);
-            puts("---------------------------------------------");
-
         }
 
         struct element* tempPtr = *stack;
