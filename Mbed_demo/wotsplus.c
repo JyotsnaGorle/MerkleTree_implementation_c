@@ -70,7 +70,12 @@ uint8_t* chain(int init, int end, array_of_32_uint8_t value, array_of_32_uint8_t
     
     for (int i = init; i < end; i++) {
         uint8_t bit_mask[KEY_EACH_NUMBER_BYTE_SIZE];
-        DoHMAC(value, seed, bit_mask);
+        // DoHMAC(value, seed, bit_mask);
+        uint8_t temp[2 * KEY_EACH_NUMBER_BYTE_SIZE];
+        memcpy(temp, value, KEY_EACH_NUMBER_BYTE_SIZE);
+        memcpy(temp + KEY_EACH_NUMBER_BYTE_SIZE, seed, KEY_EACH_NUMBER_BYTE_SIZE);
+
+        DoSha256_bytes(temp, bit_mask, 2 * KEY_EACH_NUMBER_BYTE_SIZE);
 
         uint8_t chain_var[KEY_EACH_NUMBER_BYTE_SIZE];
         bitwise_xor_bytes(value, bit_mask, chain_var);

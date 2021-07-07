@@ -75,7 +75,7 @@ int HashValuePrint(uint8_t* digest)
         return -1;
     }
     for (int i = 0; i < STD_HASH_SIZE_BYTES; i++)
-        printf("%02x", digest[i]);
+        printf("%x, ", digest[i]);
     printf("\n");
 
     return 0;

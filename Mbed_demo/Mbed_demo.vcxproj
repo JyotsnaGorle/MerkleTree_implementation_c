@@ -33,6 +33,11 @@
     <ClInclude Include="treehash.h" />
     <ClInclude Include="wotsplus.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
